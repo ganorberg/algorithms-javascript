@@ -1,5 +1,4 @@
-/* Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-*/
+// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
 
 // Next strategy: create trees of components. Each tree will have a root to identify that component. Union function will take first tree and attach to root of second tree (assuming unconnected) by changing first value to second.
 

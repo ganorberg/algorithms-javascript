@@ -1,5 +1,4 @@
-/* Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-*/
+// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
 
 // New strategy: set each index to value where each value represents a set. For union, merely change array values from one set value to the other. Find function is super fast and easy b/c you just check array values at given indices.
 

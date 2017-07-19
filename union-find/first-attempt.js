@@ -1,5 +1,4 @@
-/* Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-*/
+// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
 
 // This is an absolutely disgusting solution but it's how I first thought about solving the problem. Each value begins in a Set, and we create/destroy sets to connect our components.
 

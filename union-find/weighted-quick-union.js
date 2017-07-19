@@ -1,5 +1,4 @@
-/* Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-*/
+// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
 
 // Quick union makes trees too deep, so let's weigh each tree and assign smaller tree to larger tree at union. Requires size array to track number of objects at root of each tree.
 
