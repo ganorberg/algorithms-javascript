@@ -5,7 +5,7 @@ function sort(arr) {
   let subarrays = arr.map(el => [el]);
 
   // loop through array merging pairs into one sorted array
-  while (subarrays.length !== 1) {
+  while (subarrays.length > 1) {
     const merged = [];
     for (let i = 0; i < subarrays.length; i += 2) {
       // OR operator handles final item in odd arrays to avoid TypeError
