@@ -6,7 +6,7 @@ function knuthShuffle(array) {
     // generate random index between 0 and current index (exclusive)
     const random = Math.floor(Math.random() * i);
 
-    // swap current element with element at that index
+    // swap current element with element at random index
     [array[i], array[random]] = [array[random], array[i]];
   }
 }
