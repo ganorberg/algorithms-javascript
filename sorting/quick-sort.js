@@ -40,13 +40,13 @@ function sort(arr, lo, hi) {
   if (hi <= lo) { return; }
 
   // Partitions array segment in-place and returns partition index.
-  const j = partition(arr, lo, hi);
+  const pivotIndex = partition(arr, lo, hi);
 
-  // Specifies left subarray with j - 1 as input for hi parameter 
-  sort(arr, lo, j - 1);
+  // Specifies left subarray with pivotIndex - 1 as input for hi parameter 
+  sort(arr, lo, pivotIndex - 1);
 
-  // Specifies right subarray with j + 1 as input for lo parameter
-  sort(arr, j + 1, hi);
+  // Specifies right subarray with pivotIndex + 1 as input for lo parameter
+  sort(arr, pivotIndex + 1, hi);
 }
 
 function quickSort(arr) {
