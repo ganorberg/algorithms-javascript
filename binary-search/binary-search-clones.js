@@ -1,5 +1,4 @@
-/* Write a binary search algorithm that operates in logarithmic time for a sorted list. Return true if there is a match, or false otherwise.
-*/
+// easy to read, but takes extra time and space on sliced clones
 
 const arr = [1, 2, 4, 9, 22, 101, 500];
 
@@ -14,5 +13,10 @@ function binarySearch(array, val) {
   if (val > array[middle]) { return binarySearch(right, val); }
 }
 
+console.log(binarySearch(arr, 0));
+console.log(binarySearch(arr, 1));
 console.log(binarySearch(arr, 2));
-console.log(binarySearch(arr, 7));
+console.log(binarySearch(arr, 100));
+console.log(binarySearch(arr, 101));
+console.log(binarySearch(arr, 500));
+console.log(binarySearch(arr, 501));
