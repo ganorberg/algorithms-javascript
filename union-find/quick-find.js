@@ -1,21 +1,21 @@
-// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-
-// New strategy: set each index to value where each value represents a set. For union, merely change array values from one set value to the other. Find function is super fast and easy b/c you just check array values at given indices.
+/* New strategy: Sets are represented by array values, and index can be used to
+ * remember original set. For union, merely change array values from one set
+ * value to the other. Find function is super fast and easy because you simply
+ * check array values at given indices.
+*/
 
 const values = [0, 1, 2];
 
 function union(a, b) {
-  // if same value, return early b/c already same set
+  // exit call because both values are already in the same set
   if (values[a] === values[b]) return;
 
-  // values[b] will be updated, so store set value in variable
+  // need to store set value in variable because loop overwrites b values at match
   const valueB = values[b];
 
-  // if different values, loop through array changing elements matching second value to first value
+  // convert set b to set a
   values.forEach((value, idx) => {
-    if (value === valueB) {
-      values[idx] = values[a];
-    }
+    if (value === valueB) { values[idx] = values[a]; }
   });
 }
 

@@ -1,6 +1,6 @@
-// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-
-// Much cleaner with root abstracted b/c allows use in both union and connected functions and avoids double hard-coded while loop
+/* Much cleaner with root abstracted -- allows use in both union and 
+ * connected functions and avoids double hard-coded while loop
+ */
 
 const values = [0, 1, 2, 3, 4];
 

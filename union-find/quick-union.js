@@ -1,9 +1,10 @@
-// Union-find: Given a set of N objects, create two functions: one that dynamically connects two objects from that set and one that checks if two objects are already connected.
-
-// Next strategy: create trees of components. Each tree will have a root to identify that component. Union function will take first tree and attach to root of second tree (assuming unconnected) by changing first value to second.
-
-// This turned out mangled and gross in terms of modularity... cleaned up in another file by abstracting root search and connect logic.
-
+/* Next strategy: create trees of components. Each tree will have a root to
+ * identify that set. Union function will take first tree and attach to
+ * root of second tree (assuming unconnected) by changing first * value to second.
+ *
+ * This turned out mangled and gross in terms of modularity... cleaned up in
+ * quick-union-root file by abstracting root search and connect logic.
+ */
 const values = [0, 1, 2, 3, 4];
 
 function union(a, b) {
@@ -29,7 +30,7 @@ function find(a, b) {
     rootB = values[rootB];
   }
 
-  // return comparison of roots and roots for union
+  // return comparison of roots as well as both roots for union call
   return [rootA === rootB, rootA, rootB];
 }
 
