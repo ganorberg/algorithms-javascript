@@ -24,7 +24,6 @@ function knuthShuffle(arr) {
 
 // modify insertion sort to target subarray in-place
 function insertionSort(arr, lo, hi) {
-  console.log('lo: ', lo, 'hi: ', hi);
   // i now represents beginning and end of subarray
   for (let i = lo; i <= hi; i++) {
     // inner loop stops when j reaches beginning of subarray
