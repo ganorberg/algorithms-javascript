@@ -9,7 +9,6 @@
  * other than the bit at the index. Finally, we compare that to 0. If that new
  * value is not zero, then bit at index must have a 1. Otherwise, the bit is a 0.
  */
-
 function getBit(binary, index) {
   return ((binary & (1 << index)) !== 0);
 }

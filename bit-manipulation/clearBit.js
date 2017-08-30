@@ -6,7 +6,6 @@
  * for index = 4. Negate it to reverse values like 11101111. Perform an AND
  * operation with binary to clear the bit at the index and leave the rest.
  */
-
 function clearBit(binary, index) {
   const mask = ~(1 << index);
   return binary & mask;

@@ -6,7 +6,6 @@
  * for index = 4. By performing an OR with binary, only the value at the index
  * will change. All other bits of the mask are zero and will not affect binary.
  */
-
 function setBit(binary, index) {
   return binary | (1 << index);
 }
