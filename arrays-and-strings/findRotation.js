@@ -34,3 +34,5 @@ const arr3 = [0, 1, 2, 3, 4];
 console.log(0, findRotation(arr3));
 const arr4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0];
 console.log(11, findRotation(arr4));
+const arr5 = [1];
+console.log(0, findRotation(arr5));
