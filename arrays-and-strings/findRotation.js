@@ -8,20 +8,22 @@ function findRotation(arr) {
   if (arr[hi - 1] > arr[lo]) { return lo; }
 
   let middle = Math.floor(arr.length / 2);
-  while (true) {
-    // Found rotation!
-    if (arr[middle] < arr[middle - 1]) { return middle; }
-    // Check if need to move left or right
-    else {
-      if (arr[middle] > arr[lo]) { 
-        lo = middle;
-        middle = Math.floor((hi + lo) / 2);
-      } else {
-        hi = middle;
-        middle = Math.floor((hi + lo) / 2);
-      }
+
+  // Loop until rotation is found at middle
+  while (arr[middle] > arr[middle - 1]) {
+    // Move right if middle and lo are part of same ascending sequence
+    if (arr[middle] > arr[lo]) { 
+      lo = middle;
+      middle = Math.floor((hi + lo) / 2);
+    
+    // Move left if middle and hi are part of same ascending sequence
+    } else {
+      hi = middle;
+      middle = Math.floor((hi + lo) / 2);
     }
   }
+
+  return middle;
 }
 
 const arr = [5, 6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4];
