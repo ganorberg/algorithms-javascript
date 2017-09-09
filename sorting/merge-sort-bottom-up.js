@@ -26,7 +26,7 @@ function merge(a, b) {
 
   // push smallest item every time, then increment index to compare next item
   while (indexA < a.length && indexB < b.length) {
-    a[indexA] <= b[indexB]
+    a[indexA] < b[indexB]
       ? output.push(a[indexA++])
       : output.push(b[indexB++]);
   }
@@ -39,5 +39,5 @@ function merge(a, b) {
   return output;
 }
 
-const arr = [3, 2, -4, 1, -10, 12, -3];
+const arr = [3, 2, -4, 1, 1, -10, 12, -3];
 console.log(sort(arr));

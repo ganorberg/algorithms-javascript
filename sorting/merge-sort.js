@@ -6,7 +6,7 @@ function merge(a, b) {
 
   // push smallest item every time, then increment index to compare next item
   while (indexA < a.length && indexB < b.length) {
-    a[indexA] <= b[indexB]
+    a[indexA] < b[indexB]
       ? output.push(a[indexA++])
       : output.push(b[indexB++]);
   }
@@ -21,9 +21,7 @@ function merge(a, b) {
 
 function sort(arr) {
   // base case: provide unit arrays to merge function to begin merging pieces
-  if (arr.length < 8) {
-    return arr;
-  }
+  if (arr.length === 1) { return arr; }
   const mid = Math.floor(arr.length / 2);
   const left = arr.slice(0, mid);
   const right = arr.slice(mid);
