@@ -34,9 +34,6 @@ class Stack {
   }
 }
 
-const queueStack = new Stack();
-const dequeueStack = new Stack();
-
 // private MyQueue method via closure
 function dump(stack1, stack2) {
   while (stack1.isEmpty() === false) { stack2.push(stack1.pop()); }
@@ -44,8 +41,8 @@ function dump(stack1, stack2) {
 
 class MyQueue {
   constructor() {
-    this.q = queueStack;
-    this.dq = dequeueStack;
+    this.q = new Stack();
+    this.dq = new Stack();
   }
 
   dequeue() {
@@ -59,7 +56,7 @@ class MyQueue {
   }
 
   peek() {
-    dump(this.q, this.dq);
+    if (this.dq.isEmpty()) { dump(this.q, this.dq); }
     return this.dq.peek();
   }
 
@@ -85,3 +82,11 @@ queue.dequeue();
 // queue.dequeue();
 // queue.dequeue();
 console.log(queue);
+
+const queue2 = new MyQueue();
+queue2.enqueue(1);
+queue2.enqueue(2);
+queue2.enqueue(3);
+queue2.dequeue();
+queue2.enqueue(7);
+console.log('peek 2: ', queue2.peek()); // 2
