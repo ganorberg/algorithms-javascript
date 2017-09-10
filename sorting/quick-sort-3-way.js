@@ -14,35 +14,33 @@ function knuthShuffle(arr) {
 }
 
 function sort(arr, lo, hi) {
-  // base case: when pointers cross
+  // Base case: when pointers cross, array is sorted!
   if (hi <= lo) { return; }
  
-  // we select pivot to be first item
+  // Select pivot to be first item
   let pivot = lo;
 
-  // left pointer carries comparison logic
+  // Left pointer will directly compare to pivot and right for swapping
   let left = lo + 1;
 
-  // right pointer values are never directly compared to pivot, but are used
+  // Right pointer values are never directly compared to pivot, but are used
   // to deliver values to left pointer for comparison with pivot and eventually
   // end the loop when it crosses the left pointer
   let right = hi;
 
-  // partition until pointers cross
+  // Partition until pointers cross
   while (left <= right) {
-    // important part of 3-way partitioning is simply moving left pointer on dupes
-    if (arr[left] === arr[pivot]) {
-      left++;
-    }
+    // Important part of 3-way partitioning is simply moving left pointer on dupes
+    if (arr[left] === arr[pivot]) { left++; }
 
-    // swaps with pivot only occur when left pointer value is lesser
+    // Only swap with pivot when left pointer value is lesser
     else if (arr[left] < arr[pivot]) {
       swapInPlace(arr, left, pivot);
       left++;
       pivot++;
     }
     
-    // cannot swap with pivot, so swap with right. This creates a region of 
+    // Cannot swap with pivot, so swap left with right. This creates a region of 
     // values greater than the pivot to the right of the right pointer.
     else if (arr[left] > arr[pivot]) {
       swapInPlace(arr, left, right);
@@ -50,14 +48,14 @@ function sort(arr, lo, hi) {
     }
   }
 
-  // sort left subarray
+  // Once partitioned, sort left subarray in this execution context...
   sort(arr, lo, pivot - 1);
-  // sort right subarray
-  sort(arr, right + 1, hi);
+  // ... and sort right subarray in this execution context
+  sort(arr, pivot + 1, hi);
 }
 
 function quickSort(arr) {
-  // randomization necessary to guarantee performance
+  // Randomization necessary to guarantee performance
   knuthShuffle(arr);
   sort(arr, 0, arr.length - 1);
 }
