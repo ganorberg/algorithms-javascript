@@ -42,7 +42,7 @@ const memoStep = memoize(tripleStep);
 // console.log(tripleStep(7));
 // console.log(tripleStep(8));
 console.log(tripleStep(9));
-console.log(tripleStep(5000));
+console.log(tripleStep(1000));
 
 // 1, 1, 1, 1
 // 2, 1, 1
