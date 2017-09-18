@@ -24,7 +24,7 @@ function merge(a, b) {
   let indexB = 0;
 
   while (indexA < a.length && indexB < b.length) {
-    a[indexA] < b[indexB]
+    a[indexA] <= b[indexB]
       ? output.push(a[indexA++])
       : output.push(b[indexB++]);
   }

@@ -6,7 +6,7 @@ function merge(a, b) {
 
   // push smallest item every time, then increment index to compare next item
   while (indexA < a.length && indexB < b.length) {
-    a[indexA] < b[indexB]
+    a[indexA] <= b[indexB]
       ? output.push(a[indexA++])
       : output.push(b[indexB++]);
   }
