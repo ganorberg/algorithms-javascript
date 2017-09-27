@@ -7,6 +7,7 @@
  * Assumptions:
  * - one input will be a properly structured grid, which means:
  *   - all elements in subarrays are booleans, where false represents "off limits"
+ *   - all rows are the same length
  * - use recursion because each "move" is same problem but smaller
  * - use dynamic programming to cache results of recursive calls and avoid duplicate work
  * - first path returned is fine
@@ -22,46 +23,45 @@
  * - O(rc) by caching visits to avoid visiting cells whose paths have already been calculated
  */
 function getGridPath(grid, row = 0, column = 0, path = [], visited = new Set()) {
-  // Check edge cases to fast fail
+  // Test for invalid inputs
   if (
     !Array.isArray(grid)
+    || grid.length === 0
     || grid.map(row => Array.isArray(row)).includes(false)
     || row < 0
     || column < 0
+    || !Number.isSafeInteger(row)
+    || !Number.isSafeInteger(column)
     || !Array.isArray(path)
     || Object.prototype.toString.call(visited) !== '[object Set]'
   ) {
     return 'Please insert valid inputs';
   }
 
-  // Store path info for answer
-  path.push([row, column]);
+  const totalRows = grid.length;
+  const totalColumns = grid[0].length;
+
+  // Base cases: out of bounds, hit an "off limit" cell, or already visited this cell
+  if (
+    row >= totalRows
+    || column >= totalColumns
+    || grid[row][column] === false
+    || visited.has([row, column])
+  ) { return null; }
+
+  // Copy path to avoid all routes sharing same array
+  const localPath = path.slice();
+  localPath.push([row, column]);
 
   // Globally track history to avoid repeat visits and duplicate work
   visited.add([row, column]);
 
-  const totalRows = grid.length;
-  const totalColumns = grid[0].length;
-
   // Base case: reached bottom right of grid
-  if (row === totalRows - 1 && column === totalColumns - 1) { return path; }
+  if (row === totalRows - 1 && column === totalColumns - 1) { return localPath; }
   
-  // Continue building path by moving down
-  if (
-    grid[row + 1] !== undefined
-    && grid[row + 1][column] === true
-    && !visited.has([row + 1, column])
-  ) {
-    return getGridPath(grid, row + 1, column, path, visited);
-  }
-  
-  // Continue building path by moving to the right
-  if (
-    grid[row][column + 1] === true
-    && !visited.has([row, column + 1])
-  ) {
-    return getGridPath(grid, row, column + 1, path, visited);
-  }
+  // Move down or to the right in all possible combinations until hit base cases
+  return getGridPath(grid, row + 1, column, localPath, visited) ||
+         getGridPath(grid, row, column + 1, localPath, visited);
 }
 
 const T = true;
@@ -69,7 +69,7 @@ const F = false;
 const testGrid0 = [
   [T, T, T],
   [T, F, T],
-  [T, T, T],
+  [F, T, T],
 ];
 
 const testGrid1 = [
