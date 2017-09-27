@@ -50,8 +50,7 @@ function getGridPath(grid, row = 0, column = 0, path = [], visited = new Set()) 
   ) { return null; }
 
   // Copy path to avoid all routes sharing same array
-  const localPath = path.slice();
-  localPath.push([row, column]);
+  const localPath = [...path, [row, column]];
 
   // Globally track history to avoid repeat visits and duplicate work
   visited.add([row, column]);
