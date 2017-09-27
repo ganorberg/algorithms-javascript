@@ -9,7 +9,7 @@
  * - return false if no magic index
  *
  * Time complexity:
- * - O(logN) without dupes
+ * - O(logN)
  */
 function magicIndex(arr) {
   if (!Array.isArray(arr)) { return 'Please insert array input'; }
@@ -23,7 +23,6 @@ function magicIndex(arr) {
     if (arr[midIndex] === midIndex) { return midIndex; }
     else if (arr[midIndex] > midIndex) { hi = midIndex - 1; }
     else if (arr[midIndex] < midIndex) { lo = midIndex + 1; }
-
     midIndex = Math.floor((hi + lo) / 2);
   }
 
