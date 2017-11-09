@@ -13,14 +13,14 @@
  * - without memoize: O(3^n)
  * - with memoize: O(n)
  */
-function tripleStep(n, sum = 0, memo = memoStep) {
+function tripleStep(n, memo, sum = 0) {
   if (!Number.isSafeInteger(n) || n < 1) {
     return 'Please insert a safe positive integer into tripleStep function';
   }
 
   if (sum === n) { return 1; }
   if (sum > n) { return 0; }
-  return memo(n, sum + 1) + memo(n, sum + 2) + memo(n, sum + 3);
+  return memo(n, memo, sum + 1) + memo(n, memo, sum + 2) + memo(n, memo, sum + 3);
 }
 
 function memoize(func) {
