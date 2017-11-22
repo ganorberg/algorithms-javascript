@@ -15,7 +15,7 @@
  */
 function minStepsDP(n) {
   // Base cases: minimum steps for n = 1, 2 and 3
-  DP = [null, 0, 1, 1];
+  const DP = [null, 0, 1, 1];
 
   const STEP = 1;
 
