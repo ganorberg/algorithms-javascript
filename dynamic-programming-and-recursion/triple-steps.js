@@ -5,45 +5,44 @@
  * Assumptions:
  * - only accept positive safe integers
  * - cannot overstep. For example, 1 step left means cannot take 2 or 3 steps.
- * - scales poorly without memoizing calculations
- * - call stack will be exceeded for large inputs (>1000ish) if not tail call
- *   optimized
  *
- * Time complexity:
- * - without memoize: O(3^n)
- * - with memoize: O(n)
+ * Time complexity: O(n)
+ * Space complexity: O(n)
  */
-function tripleStep(n, memo, sum = 0) {
-  if (!Number.isSafeInteger(n) || n < 1) {
-    return 'Please insert a safe positive integer into tripleStep function';
+function tripleStepDP(n) {
+  /*
+    BASE CASES
+    1
+  
+    1 + 1
+    2
+  
+    1 + 1 + 1
+    2 + 1
+    1 + 2
+    3
+  */
+  const DP = [null, 1, 2, 4];
+
+  for (let i = 4; i <= n; i++) {
+    DP[i] = DP[i - 1] + DP[i - 2] + DP[i - 3];
   }
 
-  if (sum === n) { return 1; }
-  if (sum > n) { return 0; }
-  return memo(n, memo, sum + 1) + memo(n, memo, sum + 2) + memo(n, memo, sum + 3);
+  return DP[n];
 }
 
-function memoize(func) {
-  const memo = {};
+console.log(1, tripleStepDP(1));
+console.log(2, tripleStepDP(2));
+console.log(4, tripleStepDP(3));
+console.log(7, tripleStepDP(4));
+console.log(13, tripleStepDP(5));
+console.log(24, tripleStepDP(6));
+console.log(44, tripleStepDP(7));
+console.log(81, tripleStepDP(8));
+console.log(149, tripleStepDP(9));
+console.log('huge: ', tripleStepDP(1000));
 
-  return (...args) => {
-    const key = JSON.stringify(args);
-    return memo.hasOwnProperty(key) ? memo[key] : memo[key] = func(...args);
-  }
-}
-
-const memoStep = memoize(tripleStep);
-// console.log(tripleStep(1));
-// console.log(tripleStep(2));
-// console.log(tripleStep(3));
-// console.log(tripleStep(4));
-// console.log(tripleStep(5));
-// console.log(tripleStep(6));
-// console.log(tripleStep(7));
-// console.log(tripleStep(8));
-console.log(tripleStep(9, memoStep));
-console.log(tripleStep(1000, memoStep));
-
+// FOUR:
 // 1, 1, 1, 1
 // 2, 1, 1
 // 1, 2, 1
@@ -51,3 +50,26 @@ console.log(tripleStep(1000, memoStep));
 // 2, 2
 // 3, 1
 // 1, 3
+
+
+// WEIRD MEMOIZED VERSION
+// function tripleStep(n, memo, sum = 0) {
+//   if (!Number.isSafeInteger(n) || n < 1) {
+//     return 'Please insert a safe positive integer into tripleStep function';
+//   }
+
+//   if (sum === n) { return 1; }
+//   if (sum > n) { return 0; }
+//   return memo(n, memo, sum + 1) + memo(n, memo, sum + 2) + memo(n, memo, sum + 3);
+// }
+
+// function memoize(func) {
+//   const memo = {};
+
+//   return (...args) => {
+//     const key = JSON.stringify(args);
+//     return memo.hasOwnProperty(key) ? memo[key] : memo[key] = func(...args);
+//   }
+// }
+
+// const memoStep = memoize(tripleStep);
