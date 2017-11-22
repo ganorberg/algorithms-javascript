@@ -46,14 +46,14 @@ function getGridPath(grid, row = 0, column = 0, path = [], visited = new Set()) 
     row >= totalRows
     || column >= totalColumns
     || grid[row][column] === false
-    || visited.has([row, column])
+    || visited.has(`${row},${column}`)
   ) { return null; }
 
   // Copy path to avoid all routes sharing same array
   const localPath = [...path, [row, column]];
 
   // Globally track history to avoid repeat visits and duplicate work
-  visited.add([row, column]);
+  visited.add(`${row},${column}`);
 
   // Base case: reached bottom right of grid
   if (row === totalRows - 1 && column === totalColumns - 1) { return localPath; }
