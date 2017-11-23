@@ -1,6 +1,6 @@
 /* Given a knapsack of size S and a collection of items each with a size and
  * value, return the maximum value that the knapsack can hold. Fractional
- * items are not allowed.
+ * items are not allowed. Items can only be used once.
  *
  * Assumptions:
  * - valid inputs
