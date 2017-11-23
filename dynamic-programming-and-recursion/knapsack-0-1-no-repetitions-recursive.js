@@ -11,9 +11,6 @@ function knapsack(
   index = 0,
   value = 0
 ) {
-  // Base case: failure
-  if (size < 0) { return -Infinity; }
-
   // Base case: successful value found
   if (size === 0 || index >= items.length) { return value; }
 
