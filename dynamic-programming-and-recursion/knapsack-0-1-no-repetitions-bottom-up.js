@@ -5,13 +5,15 @@
  * Assumptions:
  * - valid inputs
  *
+ * SIMPLIFIED COMPLEXITY ANALYSIS
  * Time complexity: O(n * S), where n is number of items and S is size of knapsack
  * Space complexity: O(n * S), where n is number of items and S is size of knapsack
  *
- * Note this is pseudo-polynomial time because it depends on the numeric value
- * of the input S, not just the number of inputs. Numeric values grow
- * exponentially in terms of bits (2^x), and since technically time complexity
- * scales with number of bits, this means it cannot be polynomial.
+ * REAL COMPLEXITY ANALYSIS
+ * Note this is pseudo-polynomial time because time complexity technically
+ * scales with number of bits. Numeric values, such as input S, grow
+ * exponentially in terms of bits (2^bits in S). The number of bits in S is
+ * proportional to log S. Therefore, the true running time is O(n * 2^log S).
  */
 function buildEmptyCache(numberOfRows) {
   const cache = [];
@@ -84,7 +86,15 @@ const bag = [
   { size: 5, value: 7 },
 ];
 
+const store = [
+  { size: 6, value: 30 },
+  { size: 3, value: 14 },
+  { size: 4, value: 16 },
+  { size: 2, value: 9 },
+]
+
 console.log(27, knapsack(5, items));
 console.log(47, knapsack(15, items));
 console.log(63, knapsack(1000, items));
 console.log(9, knapsack(7, bag));
+console.log(46, knapsack(10, store));

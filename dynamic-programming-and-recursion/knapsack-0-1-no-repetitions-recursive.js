@@ -48,7 +48,15 @@ const bag = [
   { size: 5, value: 7 },
 ];
 
+const store = [
+  { size: 6, value: 30 },
+  { size: 3, value: 14 },
+  { size: 4, value: 16 },
+  { size: 2, value: 9 },
+]
+
 console.log(27, knapsack(5, items));
 console.log(47, knapsack(15, items));
 console.log(63, knapsack(1000, items));
 console.log(9, knapsack(7, bag));
+console.log(46, knapsack(10, store));
