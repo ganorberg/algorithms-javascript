@@ -72,14 +72,29 @@ function sortStack(stack) {
 }
 
 const stack = new Stack();
-// stack.push(3);
-// stack.push(1);
-// stack.push(2);
-// stack.push(5);
+stack.push(3);
+stack.push(1);
+stack.push(2);
+stack.push(7);
 
-for (let i = 0; i < 1000; i++) {
-  stack.push(i);
-}
-// stack.push(7);
+// for (let i = 0; i < 1000; i++) {
+//   stack.push(i);
+// }
+stack.push(5);
 sortStack(stack);
 console.log(stack);
+
+/* Write a program to sort a stack such that the smallest items are on the top.
+ * You can use an additional temporary stack, but you may not copy the elements
+ * into any other data structure (such as an array). The stack supports the
+ * following operations: push, pop, peek, and isEmpty.
+ */
+function sortStack(stack) {
+  // create temp stack
+  // pop val from og stack
+  // compare to peek both stacks
+    // if 
+    // if og stack peek is smaller, move to temp stack
+  const tempStack = new Stack();
+  
+}
