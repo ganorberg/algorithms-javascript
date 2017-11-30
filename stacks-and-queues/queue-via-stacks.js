@@ -7,6 +7,7 @@
  * - dequeue may be called on empty queue, and undefined will be returned
  */
 
+// Private class via closure if exporting MyQueue
 class Stack {
   constructor() {
     this.storage = [];
@@ -24,7 +25,7 @@ class Stack {
     this.storage.push(value);
     return this.storage.length;
   }
-  
+
   pop() {
     return this.storage.pop();
   }
@@ -34,7 +35,7 @@ class Stack {
   }
 }
 
-// private MyQueue method via closure
+// Private method via closure if exporting MyQueue
 function dump(stack1, stack2) {
   while (stack1.isEmpty() === false) { stack2.push(stack1.pop()); }
 }
