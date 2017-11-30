@@ -7,11 +7,6 @@
  * - no capacity limit on either stack
  * - stack contains safe non-NaN numbers
  * - input is not empty stack
- *
- * ALTERNATIVE SOLUTION:
- * - dump check not necessary. Can use tempStack as sorted stack and move
- *   value from stack into proper position on tempStack with similar logic.
- *   When stack is empty, tempStack dumps into stack to deliver sorted stack.
  */
 
 class Stack {
@@ -31,43 +26,30 @@ class Stack {
     this.storage.push(value);
     return this.storage.length;
   }
-  
+
   pop() {
     return this.storage.pop();
   }
 }
 
-// move values from stack1 into stack2 using push and pop
-function dump(stack1, stack2) {
-  // compare popped values to previously popped value to see if stack is sorted
-  let previous = Infinity;
-  let sorted = true;
-
-  while (stack1.isEmpty() === false) {
-    const peek = stack1.peek();
-    if (peek > previous) { sorted = false; }
-    previous = peek;
-    stack2.push(stack1.pop());
-  }
-
-  return sorted === true ? 'sorted' : 'not sorted';
-}
-
 function sortStack(stack) {
   const tempStack = new Stack();
 
-  while (true) {
-    let value = stack.pop();
-    while (stack.isEmpty() === false) {
-      if (value > stack.peek()) { tempStack.push(stack.pop()); }
-      else {
-        tempStack.push(value);
-        value = stack.pop();
-      }
+  while (!stack.isEmpty()) {
+    let pivot = stack.pop();
+
+    // Move items into sorted order around pivot. Empty tempStack avoids loop.
+    while (pivot < tempStack.peek()) {
+      stack.push(tempStack.pop());
     }
-  
-    tempStack.push(value);
-    if (dump(tempStack, stack) === 'sorted') { return; }
+
+    // tempStack will always be sorted because pivot is added after all items larger
+    tempStack.push(pivot);
+  }
+
+  // Populate stack with sorted order now that temp stack has reverse sorted order
+  while (!tempStack.isEmpty()) {
+    stack.push(tempStack.pop());
   }
 }
 
@@ -84,17 +66,49 @@ stack.push(5);
 sortStack(stack);
 console.log(stack);
 
-/* Write a program to sort a stack such that the smallest items are on the top.
- * You can use an additional temporary stack, but you may not copy the elements
- * into any other data structure (such as an array). The stack supports the
- * following operations: push, pop, peek, and isEmpty.
- */
-function sortStack(stack) {
-  // create temp stack
-  // pop val from og stack
-  // compare to peek both stacks
-    // if 
-    // if og stack peek is smaller, move to temp stack
-  const tempStack = new Stack();
-  
-}
+
+// OLD INEFFICIENT SOLUTION
+// // move values from stack1 into stack2 using push and pop
+// function dump(stack1, stack2) {
+//   // compare popped values to previously popped value to see if stack is sorted
+//   let previous = Infinity;
+//   let sorted = true;
+
+//   while (stack1.isEmpty() === false) {
+//     const peek = stack1.peek();
+//     if (peek > previous) {
+//       sorted = false;
+//     }
+//     previous = peek;
+//     stack2.push(stack1.pop());
+//   }
+
+//   return sorted === true ? "sorted" : "not sorted";
+// }
+
+// function sortStack(stack) {
+//   const tempStack = new Stack();
+
+//   while (true) {
+//     // Hold top
+//     let value = stack.pop();
+//     while (stack.isEmpty() === false) {
+//       // If hold > top, move top over
+//       if (value > stack.peek()) {
+//         tempStack.push(stack.pop());
+
+//         // Move hold and set new hold
+//       } else {
+//         tempStack.push(value);
+//         value = stack.pop();
+//       }
+//     }
+
+//     tempStack.push(value);
+
+//     // Bad practice to combine command and query...
+//     if (dump(tempStack, stack) === "sorted") {
+//       return;
+//     }
+//   }
+// }
