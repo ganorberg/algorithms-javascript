@@ -20,25 +20,17 @@ function jumpingNumbersLessThan(x) {
   const jumpingNumbers = [0];
   const numStr = String(x);
 
-  // Edge case: input is single digit
-  if (numStr.length === 1) {
-    for (let i = 1; i <= x; i++) {
-      jumpingNumbers.push(i);
-    }
-
-    return jumpingNumbers;
-  }
-
   const firstDigit = Number(numStr[0]);
   const maxLength = numStr.length;
 
   for (let digit = 1; digit <= 9; digit++) {
     let jumps;
 
+    // Calculate same magnitude numbers first. e.g. 380 -> 1, 2, 3 up to 100s, 200s, 300s
     if (digit <= firstDigit) {
       jumps = generateJumpers(digit, maxLength);
     } else {
-      // Once all numbers of same magnitude are calculated, reduce magnitude
+      // Reduce magnitude. e.g. 380 -> 4, 5, 6, 7, 8, 9 up to 40s, 50s, 60s, 70s, 80s, 90s
       jumps = generateJumpers(digit, maxLength - 1);
     }
 
@@ -51,13 +43,16 @@ function jumpingNumbersLessThan(x) {
 
 function generateJumpers(digit, maxLength) {
   const jumpers = [digit];
-  let prev = [digit];
+
+  // Need temp so queue is not mutated while looping through it
+  let queue = [digit];
   let temp = [];
 
   for (let place = 1; place < maxLength; place++) {
-    prev.forEach(num => {
+    queue.forEach(num => {
       const numStr = String(num);
       const finalDigit = Number(numStr[numStr.length - 1]);
+
       const add1 = Number(numStr + String(finalDigit + 1));
       const subtract1 = Number(numStr + String(finalDigit - 1));
 
@@ -72,7 +67,7 @@ function generateJumpers(digit, maxLength) {
       }
     });
 
-    prev = temp;
+    queue = temp;
     temp = [];
   }
 
