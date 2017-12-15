@@ -1,10 +1,7 @@
 // Optimal JS implementation with constant space and logarithmic time complexity
-
-const arr = [1, 2, 4, 9, 22, 101, 500];
-
-function binarySearch(array, val, leftPointer = 0, rightPointer = array.length - 1) {
-  let left = leftPointer;
-  let right = rightPointer;
+function binarySearch(array, val) {
+  let left = 0;
+  let right = array.length - 1;
   let middle = Math.floor((right + left) / 2);
 
   while (left <= right) {
@@ -17,10 +14,12 @@ function binarySearch(array, val, leftPointer = 0, rightPointer = array.length -
   return false;
 }
 
-console.log(binarySearch(arr, 0));
-console.log(binarySearch(arr, 1));
-console.log(binarySearch(arr, 2));
-console.log(binarySearch(arr, 100));
-console.log(binarySearch(arr, 101));
-console.log(binarySearch(arr, 500));
-console.log(binarySearch(arr, 501));
+const arr = [1, 2, 4, 9, 22, 101, 500];
+
+console.log(false, binarySearch(arr, 0));
+console.log(true, binarySearch(arr, 1));
+console.log(true, binarySearch(arr, 2));
+console.log(false, binarySearch(arr, 100));
+console.log(true, binarySearch(arr, 101));
+console.log(true, binarySearch(arr, 500));
+console.log(false, binarySearch(arr, 501));
