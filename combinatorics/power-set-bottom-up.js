@@ -4,8 +4,8 @@
  * - include empty set
  * - input data type is array
  * - gets really slow after length 20 because 2^20 = 1M operations, and typical
- *   CPU operates at roughly 1M ops/sec. Each additional unit of length will
- *   continue to double the time, so 23 would take ~8 seconds, for example.
+ *   CPU operates at roughly 1B ops/sec. Each additional unit of length will
+ *   continue to double the time. Length 23 is beyond 1B, for example.
  *
  * Time complexity: O(2^N)
  * Space complexity: O(2^N)
@@ -29,6 +29,6 @@ function findPowerSet(arr) {
 }
 
 const arr0 = [1, 2, 3];
-const arr1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't'];  // gets really slow after length 20 because 2^20 = 1M which takes ~1 second on typical GHz-operating CPU
+const arr1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'];  // gets really slow after length 22
 console.log(findPowerSet(arr0));
 console.log(findPowerSet(arr1));
