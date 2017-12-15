@@ -11,15 +11,12 @@
  */
 function isJumpingNumber(x) {
   const numStr = String(x);
-  let checkJump;
 
-  for (let i = 0; i < numStr.length; i++) {
+  // Store first value so loop can start at 1 and does not need i === 0 check
+  let checkJump = Number(numStr[0]);
+
+  for (let i = 1; i < numStr.length; i++) {
     const digit = Number(numStr[i]);
-
-    if (i === 0) {
-      checkJump = digit;
-      continue;
-    }
 
     // Keep looping if jumping assertion is true and remember last digit for check
     if (checkJump === digit + 1 || checkJump === digit - 1) {
