@@ -37,38 +37,39 @@ function jumpingNumbersLessThan(x) {
     jumps.forEach(jump => jumpingNumbers.push(jump));
   }
 
-  // Could also modify generateJumpers to avoid creating values larger than x
+  // Could also modify generateJumpers to avoid creating values larger than x.
+  // This keeps code cleaner, including for single digits less than 9.
   return jumpingNumbers.filter(jump => jump <= x);
 }
 
 function generateJumpers(digit, maxLength) {
   const jumpers = [digit];
 
-  // Need temp so queue is not mutated while looping through it
+  // Store each place iteration
   let queue = [digit];
-  let temp = [];
 
   for (let place = 1; place < maxLength; place++) {
+    const temp = [];
+
     queue.forEach(num => {
       const numStr = String(num);
       const finalDigit = Number(numStr[numStr.length - 1]);
 
-      const add1 = Number(numStr + String(finalDigit + 1));
-      const subtract1 = Number(numStr + String(finalDigit - 1));
-
       if (finalDigit !== 0) {
-        jumpers.push(subtract1);
-        temp.push(subtract1);
+        const jumpDown = Number(numStr + String(finalDigit - 1));
+        temp.push(jumpDown);
       }
 
       if (finalDigit !== 9) {
-        jumpers.push(add1);
-        temp.push(add1);
+        const jumpUp = Number(numStr + String(finalDigit + 1));
+        temp.push(jumpUp);
       }
     });
 
+    // Temp stores jumps for each place so queue can use those values next loop
+    // e.g. [11, 13] -> 11 builds 110, 112 and 13 builds 132, 134
     queue = temp;
-    temp = [];
+    temp.forEach(jump => jumpers.push(jump));
   }
 
   return jumpers;
@@ -77,4 +78,4 @@ function generateJumpers(digit, maxLength) {
 console.log(jumpingNumbersLessThan(50)); // 0 1 10 12 2 21 23 3 32 34 4 43 45 5 6 7 8 9
 console.log(jumpingNumbersLessThan(6)); // 0 1 2 3 4 5 6
 console.log(jumpingNumbersLessThan(222)); // 0 1 10 12 101 121 123 2 21 23 210 212 3 32 34 4 43 45 5 54 56 6 65 67 7 76 78 8 87 89 9 98
-console.log(jumpingNumbersLessThan(6000));
+// console.log(jumpingNumbersLessThan(6000));
