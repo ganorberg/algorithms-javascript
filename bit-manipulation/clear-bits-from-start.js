@@ -1,11 +1,11 @@
 /* From least significant bit to index (exclusive), flip 1s to 0s.
  *
- * Main idea:  * AND with 1s leaves bits as is, while AND with 0s clears the
- * bits. -1 is a series of 1s in binary, so left shift 1s to the point where
- * you want to keep values (that is, at the given index).
+ * Main idea: AND with 1s leaves bits as is, while AND with 0s clears the bits. 
+ * -1 is a series of 1s in binary, so left shift 1s to the point where you want
+ * to keep values (that is, at the given index).
  *
  * EXAMPLE MASK CALCULATIONS:
- * -1 << 2 => 1111 << 2 => 1100
+ * -1 << 2 -->  1111 << 2  --> 1100
  * Notice that least significant bits below index are 0s and at/after are 1s.
  *
  * Strategy: To clear all bits from the least significant bit to the index
