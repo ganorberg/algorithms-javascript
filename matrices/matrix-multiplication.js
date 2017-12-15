@@ -5,7 +5,7 @@ function multiplyMatrices(A, B) {
   const result = [];
 
   // reset to 0 after each dot product is fully summed
-  let dotProductTemp = 0;
+  let dotProduct = 0;
 
   // loop through first matrix where A[i] represents each row
   for (let i = 0; i < A.length; i++) {
@@ -17,15 +17,15 @@ function multiplyMatrices(A, B) {
       // k is row pointer for B, and also column pointer for A to keep dot product aligned
       for (let k = 0; k < B.length; k++) {
         // classic dot product calculation
-        dotProductTemp += A[i][k] * B[k][j];
+        dotProduct += A[i][k] * B[k][j];
 
         // right before the innermost loop terminates...
         if (k === B.length - 1) {
           // store completed dotProduct -- i tracks row and push tracks column
-          result[i].push(dotProductTemp);
+          result[i].push(dotProduct);
 
           // reset
-          dotProductTemp = 0;
+          dotProduct = 0;
         }
       }
     }
