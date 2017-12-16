@@ -23,10 +23,9 @@ function hasRoute(graph, vertex, destinationVertex, visited = new Set()) {
   for (const adjacentVertex of graph[vertex]) {
     if (visited.has(adjacentVertex)) { continue; }
     if (adjacentVertex === destinationVertex) { return true; }
-
-    // Use variable to conditionally return true so loop can continue on false
-    const shouldReturn = hasRoute(graph, adjacentVertex, destinationVertex, visited);
-    if (shouldReturn === true) { return true; }
+    if (hasRoute(graph, adjacentVertex, destinationVertex, visited) === true) {
+      return true;
+    }
   }
 
   return false;
