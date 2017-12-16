@@ -36,7 +36,7 @@ function sortStack(stack) {
   const tempStack = new Stack();
 
   while (!stack.isEmpty()) {
-    let pivot = stack.pop();
+    const pivot = stack.pop();
 
     // Move items into sorted order around pivot. Empty tempStack avoids loop.
     while (pivot < tempStack.peek()) {
