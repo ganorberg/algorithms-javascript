@@ -7,6 +7,20 @@
  * - valid inputs
  * - adding Infinity + 1 yields Infinity. Otherwise need additional check to
  *   avoid adding to infinity.
+ * 
+ * STRATEGY: O(N * S) time and O(S) space
+ * Use array to track optimal amounts. It will have length of the target S, with
+ * 0 ways to make 0 and the rest at Infinity for Math.min checks later. For each
+ * coin, iterate through the optimal array (starting at coin's value) to see if
+ * this coin can improve the minimum at this index. If the value is Infinity, it
+ * will always be replaced. If it is not Infinity, then we decide if taking the
+ * coin improves the min. To decide, compare the current value to the value 
+ * "coin" amount prior with 1 added to it to represent the path where we chose
+ * this coin from that prior amount. If it takes less coins to get to the 
+ * current value, then store that new minimum. After all comparisons, return the
+ * last value in the optimal array, which represents the minimum numbers of 
+ * coins required to reach the target.
+ * 
 */
 
 function coinSum(coins, target) {
