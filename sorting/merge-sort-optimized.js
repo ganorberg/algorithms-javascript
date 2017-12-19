@@ -1,7 +1,4 @@
-// Two optimizations:
-// 1. Use insertion sort in base case to avoid recursive overhead for small arrays
-// 2. Check if left and right arrays are already sorted in merge function
-
+// Use insertion sort in base case to avoid recursive overhead for small arrays
 function insertionSort(array) {
   for (let i = 0; i < array.length; i++) {
     for (let j = i; j > 0 && array[j] < array[j - 1]; j--) {
@@ -14,11 +11,6 @@ function insertionSort(array) {
 
 function merge(a, b) {
   const output = [];
-  
-  // if biggest item in first half is less than smallest item in second half,
-  // then the overall array is already sorted! Brings mergeSort to O(N) time
-  // for a fully sorted array.
-  if (a[a.length - 1] < b[0]) { return [...a, ...b]; }
 
   let indexA = 0;
   let indexB = 0;
@@ -37,14 +29,12 @@ function merge(a, b) {
 }
 
 function sort(arr) {
-  // base case: small arrays sorted with insertion sort for ~20% perf gain
+  // Base case: small arrays sorted with insertion sort for ~20% perf gain
   if (arr.length < 8) { return insertionSort(arr); }
   const mid = Math.floor(arr.length / 2);
   const left = arr.slice(0, mid);
   const right = arr.slice(mid);
 
-  // delivers merged pieces up to parent sort call to provide arguments
-  // to parent merge call
   return merge(sort(left), sort(right));
 }
 
