@@ -11,23 +11,16 @@
  * Space complexity: O(max length of rod piece)
  */
 function maxRodRevenue(rodLength, priceTable) {
-  // Zero revenue for 0 length
+  // Initialize DP array for loop below
   const optimalRevenue = [0];
-  
-  // Don't know revenues for any length yet
-  for (let inches = 1; inches <= rodLength; inches++) {
-    optimalRevenue[inches] = -Infinity;
-  }
+  for (let cut = 1; cut <= rodLength; cut++) { optimalRevenue[cut] = -Infinity; }
 
-  // Outer loop moves through price table
-  for (let inches = 1; inches <= rodLength; inches++) {
-    if (!priceTable.hasOwnProperty(inches)) { continue; }
-    const revenue = priceTable[inches];
-
-    // Inner loop moves through optimal revenue cache
-    for (let revenueIndex = inches; revenueIndex <= rodLength; revenueIndex++) {
+  for (const cut in priceTable) {
+    // Avoid prototype chain from for in loop
+    if (!priceTable.hasOwnProperty(cut)) { continue; }
+    for (let revenueIndex = cut; revenueIndex <= rodLength; revenueIndex++) {
       // Look back at each price to see if you can improve
-      const takeIt = optimalRevenue[revenueIndex - inches] + revenue;
+      const takeIt = optimalRevenue[revenueIndex - cut] + priceTable[cut];
       const leaveIt = optimalRevenue[revenueIndex];
       optimalRevenue[revenueIndex] = Math.max(takeIt, leaveIt);
     }
