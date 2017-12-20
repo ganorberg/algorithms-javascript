@@ -1,18 +1,16 @@
-// pivot is first value in subarray
+// First element is pivot
 function partition(arr, lo, hi) {
-    // Don't add 1 because increment occurs before comparison is made.
-  let i = lo;
-  
-  // Add 1 because decrement occurs before comparison is made.
-  let j = hi + 1;
-  
-  while (true) {
-    // Scan i from left to right until find character larger than initial value
-    while (arr[++i] < arr[lo] && i !== hi) {}
+  const pivot = arr[lo];
 
-    // Scan j from right to left until find character smaller than initial value
-    while (arr[--j] > arr[lo] && j !== lo) {}
-    
+  let i = lo + 1;
+  let j = hi;
+
+  while (true) {
+    while (arr[i] < pivot && i < hi) { i++; }
+
+    // j will hit pivot before exiting array, and pivot > pivot is false
+    while (arr[j] > pivot) { j--; }
+
     // When pointers cross, partitioning is complete except for final swap
     if (i >= j) { break; }
 
@@ -28,36 +26,71 @@ function partition(arr, lo, hi) {
   return j;
 }
 
-function knuthShuffle(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    const random = Math.floor(Math.random() * i);
-    [arr[i], arr[random]] = [arr[random], arr[i]];
+function knuthShuffle(array) {
+  // Skip last element because nothing left to swap with
+  for (let i = array.length - 1; i > 0; i--) {
+    // i + 1 means inclusive on current element, as opposed to i as exclusive
+    const random = Math.floor(Math.random() * (i + 1));
+    [array[i], array[random]] = [array[random], array[i]];
   }
 }
 
-function sort(arr, lo, hi) {
-  // Base case: when pointers cross, array segment is sorted.
+function sort(arr, lo = 0, hi = arr.length - 1) {
   if (hi <= lo) { return; }
-
-  // Partitions array segment in-place and returns partition index.
   const pivotIndex = partition(arr, lo, hi);
 
-  // Specifies left subarray with pivotIndex - 1 as input for hi parameter 
+  // Add and subtract 1 to leave pivot in place, as it is already sorted
   sort(arr, lo, pivotIndex - 1);
-
-  // Specifies right subarray with pivotIndex + 1 as input for lo parameter
   sort(arr, pivotIndex + 1, hi);
 }
 
 function quickSort(arr) {
-  // Requires random shuffle to guarantee performance
+  // Randomly shuffle to guarantee performance
   knuthShuffle(arr);
-  sort(arr, 0, arr.length - 1);
+  sort(arr);
 }
 
+// const arr = Array.from('KRATELEPUIMQCXOS');
+// quickSort(arr);
+// console.log(arr);
 
+// Middle element is pivot. Hoare partition scheme.
+function partitionHoare(arr, lo, hi) {
+  let pivotIndex = Math.floor((lo + hi) / 2);
+  const pivot = arr[pivotIndex];
+  let left = lo;
+  let right = hi;
 
-const str = 'KRATELEPUIMQCXOS';
-const arr = Array.from(str);
-quickSort(arr);
-console.log(arr);
+  while (left <= right) {
+    while (arr[left] < pivot) { left++; }
+    while (arr[right] > pivot) { right--; }
+    if (left <= right) {
+      [arr[left], arr[right]] = [arr[right], arr[left]];
+
+      // Need these to exit loop
+      left++;
+      right--;
+    }
+  }
+
+  return left;
+}
+
+function sortHoare(arr, lo = 0, hi = arr.length - 1) {
+  if (hi <= lo) { return; }
+  const pivotIndex = partitionHoare(arr, lo, hi);
+  sortHoare(arr, lo, pivotIndex - 1);
+
+  // Do not add 1 to lo for this implementation
+  sortHoare(arr, pivotIndex, hi);
+}
+
+function quicksortHoare(arr) {
+  // Requires random shuffle to guarantee performance over time
+  knuthShuffle(arr);
+  sortHoare(arr);
+}
+
+const arrMiddle = Array.from('KRATELEPUIMQCXOS');
+quicksortHoare(arrMiddle);
+console.log(arrMiddle);
