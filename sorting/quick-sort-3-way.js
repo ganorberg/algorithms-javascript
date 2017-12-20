@@ -6,17 +6,20 @@ function swapInPlace(arr, indexA, indexB) {
   [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
 }
 
-function knuthShuffle(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    const random = Math.floor(Math.random() * i);
-    [arr[i], arr[random]] = [arr[random], arr[i]];
+// SIDE EFFECT: shuffles in place
+function knuthShuffle(array) {
+  // Skip last element because nothing left to swap with
+  for (let i = array.length - 1; i > 0; i--) {
+    // i + 1 means inclusive on current element, as opposed to i as exclusive
+    const random = Math.floor(Math.random() * (i + 1));
+    [array[i], array[random]] = [array[random], array[i]];
   }
 }
 
 function sort(arr, lo, hi) {
   // Base case: when pointers cross, array is sorted!
   if (hi <= lo) { return; }
- 
+
   // Select pivot to be first item
   let pivot = lo;
 
@@ -39,7 +42,7 @@ function sort(arr, lo, hi) {
       left++;
       pivot++;
     }
-    
+
     // Cannot swap with pivot, so swap left with right. This creates a region of 
     // values greater than the pivot to the right of the right pointer.
     else if (arr[left] > arr[pivot]) {
@@ -48,9 +51,8 @@ function sort(arr, lo, hi) {
     }
   }
 
-  // Once partitioned, sort left subarray in this execution context...
+  // Pivot is sorted, so now sort left and right subarrays
   sort(arr, lo, pivot - 1);
-  // ... and sort right subarray in this execution context
   sort(arr, pivot + 1, hi);
 }
 
@@ -60,12 +62,13 @@ function quickSort(arr) {
   sort(arr, 0, arr.length - 1);
 }
 
-const str = 'KRATELEPUIMQCXOSHNASDIFUHOA';
+const str = 'KRATELEPUIMQDIFUHOA';
 const arr = Array.from(str);
 quickSort(arr);
 console.log(arr);
 
-const str2 = 'RBWWRWBRRWBR'; 
+const str2 = 'RBWWRWBRRWBR';
 const arr2 = Array.from(str2);
 quickSort(arr2);
 console.log(arr2);
+
