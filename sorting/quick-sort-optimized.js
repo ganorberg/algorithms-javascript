@@ -3,10 +3,10 @@
 function partition(arr, lo, hi) {
   let i = lo;
   let j = hi + 1;
-  
+
   while (true) {
-    while (arr[++i] < arr[lo] && i !== hi) {}
-    while (arr[--j] > arr[lo] && j !== lo) {}
+    while (arr[++i] < arr[lo] && i !== hi) { }
+    while (arr[--j] > arr[lo] && j !== lo) { }
     if (i >= j) { break; }
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
@@ -15,10 +15,13 @@ function partition(arr, lo, hi) {
   return j;
 }
 
-function knuthShuffle(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    const random = Math.floor(Math.random() * i);
-    [arr[i], arr[random]] = [arr[random], arr[i]];
+// SIDE EFFECT: shuffles in place
+function knuthShuffle(array) {
+  // Skip last element because nothing left to swap with
+  for (let i = array.length - 1; i > 0; i--) {
+    // i + 1 means inclusive on current element, as opposed to i as exclusive
+    const random = Math.floor(Math.random() * (i + 1));
+    [array[i], array[random]] = [array[random], array[i]];
   }
 }
 
