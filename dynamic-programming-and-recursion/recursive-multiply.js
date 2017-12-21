@@ -27,6 +27,7 @@
  *   "other number" should be the smaller value.
  */
 function recursiveMultiply(n1, n2) {
+  // Does not matter for tie which value goes where
   const smaller = Math.min(n1, n2);
   const bigger = Math.max(n1, n2);
 
@@ -34,6 +35,7 @@ function recursiveMultiply(n1, n2) {
 }
 
 function getProduct(smaller, bigger) {
+  // Allow zeroes, although problem statement only wants positive integers
   if (smaller === 0) { return 0; }
   if (smaller === 1) { return bigger; }
   if (isEven(smaller)) {
