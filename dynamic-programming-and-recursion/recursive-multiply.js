@@ -16,7 +16,7 @@
  *   cells. For an even output, we can cut the grid in half until we reach a 
  *   base case of b. For odd output, we have 2 options. We can split the call,
  *   so 5 x 9 would become 2 x 9 and 3 x 9, and recurse even or odd as 
- *   appropriate. However, a faster a option is to recognize that 5 * 9 is the
+ *   appropriate. However, a faster option is to recognize that 5 * 9 is the
  *   same as 4 * 9 + 9. So we use addition to cut the number of operations. This
  *   also avoids having to cache calls that might overlap, since with the latter
  *   strategy the smaller value simply gets cut in half repeatedly until base 
