@@ -13,28 +13,82 @@
  * Time complexity: O(N)
  * Space complexity: O(N)
  */
-function minStepsDP(n) {
-  // Base cases: minimum steps for n = 1, 2 and 3
-  const DP = [null, 0, 1, 1];
+function minSteps(N, totalSteps = 0) {
+  if (N === 1) { return totalSteps; }
+  if (N === Infinity || N < 1) { return Infinity; }
 
-  const STEP = 1;
+  const ADD_STEP = totalSteps + 1;
 
-  for (let i = 4; i <= n; i++) {
-    const subtract = i - 1;
-    let even;
-    let divisibleBy3;
+  const subtract1 = N - 1;
+  let divideBy2 = Infinity;
+  let divideBy3 = Infinity;
 
-    if (i % 2 === 0) { even = i / 2; }
-    if (i % 3 === 0) { divisibleBy3 = i / 3; }
+  if (isDivisibleBy(2, N)) { divideBy2 = N / 2; }
+  if (isDivisibleBy(3, N)) { divideBy3 = N / 3; }
 
-    const integers = [even, divisibleBy3].filter(val => Number.isSafeInteger(val));
-    const subSteps = [subtract, ...integers].map(num => DP[num]);
-    DP[i] = Math.min(...subSteps) + STEP;
+  return Math.min(
+    minSteps(subtract1, ADD_STEP),
+    minSteps(divideBy2, ADD_STEP),
+    minSteps(divideBy3, ADD_STEP)
+  );
+}
+
+function isDivisibleBy(quotient, num) {
+  return num % quotient === 0;
+}
+
+/*
+ * In DP version, we set base cases and build bottom-up. This means we use a for
+ * loop insted of recursive calls to get the min steps for each value, and we 
+ * look at the final value in the array at index N as opposed to breaking N down
+ * to 1 and building up a totalSteps variable. Logic is essentially the same, 
+ * but we handle Infinities slightly differently via array access as opposed to 
+ * base case check since there is no recursion.
+ */
+function minStepsDP(N) {
+  const optimalMinSteps = [null, 0, 1, 1]
+
+  const ADD_STEP = 1;
+  for (let num = 4; num <= N; num++) {
+    const subtract1 = num - 1;
+    let divideBy2 = Infinity;
+    let divideBy3 = Infinity;
+
+    if (isDivisibleBy(2, num)) { divideBy2 = num / 2; }
+    if (isDivisibleBy(3, num)) { divideBy3 = num / 3; }
+
+    optimalMinSteps[num] = ADD_STEP + Math.min(
+      optimalMinSteps[subtract1],
+      optimalMinSteps[divideBy2] ? optimalMinSteps[divideBy2] : Infinity,
+      optimalMinSteps[divideBy3] ? optimalMinSteps[divideBy3] : Infinity,
+    );
   }
 
-  console.log(DP);
-  return DP[n];
+  return optimalMinSteps[N];
 }
+
+// function minStepsDP(n) {
+//   // Base cases: minimum steps for n = 1, 2 and 3
+//   const DP = [null, 0, 1, 1];
+
+//   const STEP = 1;
+
+//   for (let i = 4; i <= n; i++) {
+//     const subtract = i - 1;
+//     let even;
+//     let divisibleBy3;
+
+//     if (i % 2 === 0) { even = i / 2; }
+//     if (i % 3 === 0) { divisibleBy3 = i / 3; }
+
+//     const integers = [even, divisibleBy3].filter(val => Number.isSafeInteger(val));
+//     const subSteps = [subtract, ...integers].map(num => DP[num]);
+//     DP[i] = Math.min(...subSteps) + STEP;
+//   }
+
+//   console.log(DP);
+//   return DP[n];
+// }
 
 console.log(0, minStepsDP(1));
 console.log(2, minStepsDP(4));
