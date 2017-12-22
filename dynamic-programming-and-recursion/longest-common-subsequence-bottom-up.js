@@ -60,14 +60,10 @@ const cacheFuncs = {
     let length = cache[row][column];
 
     while (length > 0) {
-      // Matching length above or left means those values had match, not current
-      if (length === cache[row - 1][column]) {
-        row--;
-      } else if (length === cache[row][column - 1]) {
-        column--;
-
-        // If value does not match left or above, then must come from match!
-      } else {
+      // Matching length above or left means we did not earn point from match
+      if (length === cache[row - 1][column]) { row--; }
+      else if (length === cache[row][column - 1]) { column--; }
+      else {
         // Subtract 1 because cache index is 1 ahead of string for each character
         LCS = A[row - 1] + LCS;
 
