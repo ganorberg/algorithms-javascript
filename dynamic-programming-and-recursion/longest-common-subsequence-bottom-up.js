@@ -14,60 +14,92 @@
  * are needed in calculations. To do this, start with mostly empty cache then
  * delete rows as they are not needed while building new ones.
  */
-function buildEmptyCache(numberOfRows) {
-  const cache = [];
-  for (let i = 0; i < numberOfRows; i++) { cache.push([]); }
-  return cache;
-}
+const cacheFuncs = {
+  buildEmptyCache(numberOfRows) {
+    const cache = [];
+    for (let row = 0; row < numberOfRows; row++) { cache.push([]); }
+    return cache;
+  },
 
-// LCS length is 0 comparing empty string with any other string
-function cacheFirstRow(cache, numberOfColumns) {
-  const firstRow = cache[0];
-  for (let i = 0; i < numberOfColumns; i++) { firstRow[i] = 0; }
-}
+  // SIDE EFFECT: mutates cache
+  cacheFirstRow(cache, numberOfColumns) {
+    for (let column = 0; column < numberOfColumns; column++) { cache[0].push(0); }
+  },
 
-function cacheFirstColumn(cache, numberOfRows) {
-  for (let i = 0; i < numberOfRows; i++) { cache[i][0] = 0; }
-}
+  // SIDE EFFECT: mutates cache
+  cacheFirstColumn(cache, numberOfRows) {
+    for (let row = 0; row < numberOfRows; row++) { cache[row][0] = 0; }
+  },
 
-function fillCache(cache, A, B) {
-  for (let row = 1; row < cache.length; row++) {
-    for (let column = 1; column < cache[0].length; column++) {
-      // Subtract 1 from each index because letters in cache start at index 1
-      const letterA = A[row - 1];
-      const letterB = B[column - 1];
+  // SIDE EFFECT: mutates cache
+  fillCache(cache, numberOfRows, numberOfColumns, A, B) {
+    for (let row = 1; row < numberOfRows; row++) {
+      for (let column = 1; column < numberOfColumns; column++) {
+        const letterA = A[row - 1];
+        const letterB = B[column - 1];
 
-      let length;
+        let maxLength;
 
-      // Add 1 for match and move to subproblem where last letter falls off each string
-      if (letterA === letterB) { length = 1 + cache[row - 1][column - 1]; }
+        // Optimal subproblem is where last letter falls off each string. This
+        // is the top-left diagonal in the cache. Add 1 to it for new optimum
+        // length between these two substrings.
+        if (letterA === letterB) { maxLength = 1 + cache[row - 1][column - 1]; }
 
-      // If no match, take maximum from substrings
-      else { length = Math.max(cache[row - 1][column], cache[row][column - 1]); }
-      
-      // Store new information
-      cache[row][column] = length;
+        // Optimum value lies in substrings
+        else { maxLength = Math.max(cache[row - 1][column], cache[row][column - 1]); }
+
+        cache[row][column] = maxLength;
+      }
     }
-  }
+  },
+
+  getLCSfromCache(cache, A) {
+    let LCS = "";
+    let row = cache.length - 1;
+    let column = cache[0].length - 1;
+    let length = cache[row][column];
+
+    while (length > 0) {
+      // Matching length above or left means those values had match, not current
+      if (length === cache[row - 1][column]) {
+        row--;
+      } else if (length === cache[row][column - 1]) {
+        column--;
+
+        // If value does not match left or above, then must come from match!
+      } else {
+        // Subtract 1 because cache index is 1 ahead of string for each character
+        LCS = A[row - 1] + LCS;
+
+        // Move to diagonal and take on its value
+        row--;
+        column--;
+        length--;
+      }
+    }
+
+    return LCS;
+  },
 }
 
-function LCSLength(A, B) {
+function LCSlength(A, B) {
   if (typeof A !== 'string' || typeof B !== 'string') {
-    throw new Error('Please insert strings in LCS function, my friend!');
+    throw new Error('Please insert strings in LCSlength function, my friend!');
   }
 
   // Add 1 for space to initialize 0s against empty string
   const numberOfRows = A.length + 1;
   const numberOfColumns = B.length + 1;
 
-  const cache = buildEmptyCache(numberOfRows);
-  cacheFirstRow(cache, numberOfColumns);
-  cacheFirstColumn(cache, numberOfRows);
-  fillCache(cache, A, B);
-  console.log(cache);
+  const cache = cacheFuncs.buildEmptyCache(numberOfRows);
+  cacheFuncs.cacheFirstRow(cache, numberOfColumns);
+  cacheFuncs.cacheFirstColumn(cache, numberOfRows);
+  cacheFuncs.fillCache(cache, numberOfRows, numberOfColumns, A, B);
+  console.log('cache: ', cache, 'one LCS: ', cacheFuncs.getLCSfromCache(cache, A));
   return cache[numberOfRows - 1][numberOfColumns - 1];
 }
 
-console.log(4, LCSLength('ABCBDAB', 'BDCABA'));
-console.log(4, LCSLength('XMJYAUZ', 'MZJAWXU'));
-console.log(3, LCSLength('DOGGGIE', 'DOOOOOOG'));
+console.log(4, LCSlength('BDCABA', 'ABCBDAB'));
+console.log(4, LCSlength('XMJYAUZ', 'MZJAWXU'));
+console.log(3, LCSlength('DOGGGIE', 'DOOOOOOG'));
+console.log(3, LCSlength('DOGE', 'DOOG'));
