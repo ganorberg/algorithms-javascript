@@ -5,71 +5,70 @@
  *
  * For example, the Levenshtein distance between kitten and sitting is 3.
  * On kitten, replace k with s, then replace e with i, then insert g at end.
- */
-function buildEmptyCache(numberOfRows) {
-  const cache = [];
-  for (let i = 0; i < numberOfRows; i++) { cache.push([]); }
-  return cache;
-}
+ * 
+ * STRATEGY:
+ * Recurrence relation is:
+ * if same, get diagonal and move both
+ * else cell = 1 + min(
+ *   prev best + insert (keep A, move B),
+ *   prev best + delete(move A, keep B),
+ *   prev best + replace(move both)
+ * )
+*/
+const cacheFuncs = {
+  buildEmptyCache(numberOfRows) {
+    const cache = [];
+    for (let i = 0; i < numberOfRows; i++) { cache.push([]); }
+    return cache;
+  },
 
-// First row compares to empty string, which means each character adds 1 insertion
-function cacheFirstRow(cache, numberOfColumns) {
-  for (let i = 0; i < numberOfColumns; i++) { cache[0][i] = i; }
-}
+  // First row compares to empty string, which means each character adds 1 insertion
+  cacheFirstRow(cache, numberOfColumns) {
+    for (let i = 0; i < numberOfColumns; i++) { cache[0][i] = i; }
+  },
 
-// First column compares to empty string, which means each character adds 1 insertion
-function cacheFirstColumn(cache, numberOfRows) {
-  for (let i = 0; i < numberOfRows; i++) {cache[i][0] = i; }
-}
+  // First column compares to empty string, which means each character adds 1 insertion
+  cacheFirstColumn(cache, numberOfRows) {
+    for (let i = 0; i < numberOfRows; i++) { cache[i][0] = i; }
+  },
 
-// Bottom-up dynamic programming approach
-function fillCache(cache, A, B) {
-  for (let row = 1; row < cache.length; row++) {
-    for (let column = 1; column < cache[0].length; column++) {
-      // Subtract 1 from each index because letters in cache start at index 1
-      const letterA = A[row - 1];
-      const letterB = B[column - 1];
+  // Bottom-up dynamic programming approach
+  fillCache(cache, A, B) {
+    const LETTER_START_INDEX = 1;
+    for (let row = LETTER_START_INDEX; row < cache.length; row++) {
+      for (let column = LETTER_START_INDEX; column < cache[0].length; column++) {
+        const letterA = A[row - LETTER_START_INDEX];
+        const letterB = B[column - LETTER_START_INDEX];
 
-      // No cost, so move to subproblem where last letter falls off each string
-      if (letterA === letterB) {
-        cache[row][column] = cache[row - 1][column - 1];
-        continue;
+        // No cost, so move to subproblem where last letter falls off each string
+        if (letterA === letterB) {
+          cache[row][column] = cache[row - 1][column - 1];
+          continue;
+        }
+
+        const OPERATION_COST = 1;
+        cache[row][column] = OPERATION_COST + Math.min(
+          // Replace
+          cache[row - 1][column - 1],
+          // Delete
+          cache[row - 1][column],
+          // Insert
+          cache[row][column - 1]
+        );
       }
-
-      const minCost = Math.min(
-        // Replace
-        cache[row - 1][column - 1],
-        // Delete
-        cache[row - 1][column],
-        // Insert
-        cache[row][column - 1]
-      );
-
-      // Adding 1 represents cost for insertion, deletion or replacement
-      cache[row][column] = minCost + 1;
     }
   }
 }
 
-/*
-Recurrence relation is:
-
-if same, get diagonal and move both
-else cell = 1 + min(
-  prev best + insert (keep A, move B),
-  prev best + delete(move A, keep B),
-  prev best + replace(move both)
-)
-*/
 function editDistanceDP(A, B) {
   // Add 1 for empty string initialization in cache's first row and column
   const numberOfRows = A.length + 1;
   const numberOfColumns = B.length + 1;
 
-  const cache = buildEmptyCache(numberOfRows);
-  cacheFirstRow(cache, numberOfColumns);
-  cacheFirstColumn(cache, numberOfRows);
-  fillCache(cache, A, B);
+  const cache = cacheFuncs.buildEmptyCache(numberOfRows);
+  cacheFuncs.cacheFirstRow(cache, numberOfColumns);
+  cacheFuncs.cacheFirstColumn(cache, numberOfRows);
+  cacheFuncs.fillCache(cache, A, B);
   console.log(cache);
   return cache[numberOfRows - 1][numberOfColumns - 1];
 }
