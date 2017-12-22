@@ -17,21 +17,25 @@
  * are needed in calculations. To do this, start with mostly empty cache then
  * delete rows as they are not needed while building new ones.
  */
-function LCSLength(X, Y, m = X.length, n = Y.length, lookup = {}) {
-  if (m === 0 || n === 0) { return 0; }
-  const key = String(m) + '|' + String(n);
+function LCSlength(A, B, indexA = 0, indexB = 0, lookup = {}) {
+  const subproblem = stringify(indexA, indexB);
+  if (lookup.hasOwnProperty(subproblem)) { return lookup[subproblem]; }
+  if (indexA >= A.length || indexB >= B.length) { return 0; }
 
-  if (lookup.hasOwnProperty(key)) { return lookup[key]; }
-  if (X[m - 1] === Y[n - 1]) {
-    return lookup[key] = 1 + LCSLength(X, Y, m - 1, n - 1, lookup);
+  if (A[indexA] === B[indexB]) {
+    return lookup[subproblem] = 1 + LCSlength(A, B, indexA + 1, indexB + 1, lookup);
   }
 
-  return lookup[key] = Math.max(
-    LCSLength(X, Y, m, n - 1, lookup),
-    LCSLength(X, Y, m - 1, n, lookup)
+  return lookup[subproblem] = Math.max(
+    LCSlength(A, B, indexA + 1, indexB, lookup),
+    LCSlength(A, B, indexA, indexB + 1, lookup),
   );
 }
 
-console.log(4, LCSLength('ABCBDAB', 'BDCABA'));
-console.log(4, LCSLength('XMJYAUZ', 'MZJAWXU'));
-console.log(3, LCSLength('DOGGGIE', 'DOOOOOOG'));
+function stringify(A, B) {
+  return `${A}|${B}`;
+}
+
+console.log(4, LCSlength('ABCBDAB', 'BDCABA'));
+console.log(4, LCSlength('XMJYAUZ', 'MZJAWXU'));
+console.log(3, LCSlength('DOGGGIE', 'DOOOOOOG'));
