@@ -7,7 +7,7 @@
  * AND with 1s leaves bits as is, while AND with 0s clears the bits.
  *
  * EXAMPLE MASK CALCULATIONS: 
- * (1 << 2) => 0010
+ * (1 << 2) => 0100
  * -1 => 1111
  * 0100 + 1111 = 0011
  * Notice how all values after (and including) the index are 0, and before are 1s.
