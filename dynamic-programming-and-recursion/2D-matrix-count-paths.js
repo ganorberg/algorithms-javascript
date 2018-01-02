@@ -3,7 +3,7 @@
  * condition that you can only travel one step right or one step down.
  *
  * Assumptions:
- * - final cell adds 1 to path
+ * - only 1 way to access first cell and all cells in first row or column
  * - matrix is rectangular array of subarrays
  * - extra space equivalent to matrix size is available
  * - whoever picks letters like M/N or i/j that look the same... why you do dis?
@@ -53,7 +53,7 @@ function countPaths(M, N, i, j) {
   ) {
     throw new Error('Please insert valid inputs. See function documentation.');
   }
-  
+
   const cache = buildEmptyCache(M);
   cacheFirstRow(N, cache);
   cacheFirstColumn(M, cache);
