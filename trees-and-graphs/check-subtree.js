@@ -49,8 +49,7 @@ function checkSubtree(T1, T2) {
 
 function matchSubtrees(T1, T2) {
   if (T1 === null && T2 === null) { return true; }
-  if (T1 === null || T2 === null) { return false; }
-  if (T1.value !== T2.value) { return false; }
+  if (T1 === null || T2 === null || T1.value !== T2.value) { return false; }
   return matchSubtrees(T1.left, T2.left) && matchSubtrees(T1.right, T2.right);
 }
 
