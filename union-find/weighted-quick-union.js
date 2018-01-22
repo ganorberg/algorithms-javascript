@@ -6,18 +6,17 @@ const values = [0, 1, 2, 3, 4];
 const size = [1, 1, 1, 1, 1];
 
 function union(a, b) {
-  if (!connected(a, b)) {
-    const rootA = root(a);
-    const rootB = root(b);
+  if (connected(a, b)) { throw new Error("Components already connected"); }
 
-    if (rootA === rootB) { return; }
-    if (size[rootA] < size[rootB]) {
-      values[rootA] = rootB;
-      size[rootB] += size[rootA];
-    } else {
-      values[rootB] = rootA;
-      size[rootA] += size[rootB];
-    }
+  const rootA = root(a);
+  const rootB = root(b);
+
+  if (size[rootA] < size[rootB]) {
+    values[rootA] = rootB;
+    size[rootB] += size[rootA];
+  } else {
+    values[rootB] = rootA;
+    size[rootA] += size[rootB];
   }
 }
 
@@ -39,13 +38,12 @@ console.log('pre-union values: ', values);
 union(2, 4);
 // values: [0, 1, 2, 3, 2]
 // size: [1, 1, 2, 1, 1]
-console.log(values);
+console.log(values, size);
 union(3, 1);
-console.log(values);
+console.log(values, size);
 // values: [0, 3, 2, 3, 2]
 // size: [1, 1, 2, 2, 1]
 union(3, 0);
-console.log(values);
-console.log('size: ', size);
+console.log(values, size);
 // values: [3, 3, 2, 3, 2];
 // size: [1, 1, 2, 3, 1]
