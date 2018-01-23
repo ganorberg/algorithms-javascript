@@ -2,14 +2,14 @@
 function partition(arr, lo, hi) {
   const pivot = arr[lo];
 
-  let i = lo + 1;
-  let j = hi;
+  let i = lo;
+  let j = hi + 1;
 
   while (true) {
-    while (arr[i] < pivot && i < hi) { i++; }
+    while (arr[++i] < pivot && i < hi) { }
 
     // j will hit pivot before exiting array, and pivot > pivot is false
-    while (arr[j] > pivot) { j--; }
+    while (arr[--j] > pivot) { }
 
     // When pointers cross, partitioning is complete except for final swap
     if (i >= j) { break; }
@@ -50,9 +50,9 @@ function quickSort(arr) {
   sort(arr);
 }
 
-// const arr = Array.from('KRATELEPUIMQCXOS');
-// quickSort(arr);
-// console.log(arr);
+const arr = Array.from('KRATELEPUIMQCXOSHNASDIFUHOA');
+quickSort(arr);
+console.log(arr);
 
 // Middle element is pivot. Hoare partition scheme.
 function partitionHoare(arr, lo, hi) {
@@ -91,6 +91,6 @@ function quicksortHoare(arr) {
   sortHoare(arr);
 }
 
-const arrMiddle = Array.from('KRATELEPUIMQCXOS');
-quicksortHoare(arrMiddle);
-console.log(arrMiddle);
+// const arrMiddle = Array.from('KRATELEPUIMQCXOS');
+// quicksortHoare(arrMiddle);
+// console.log(arrMiddle);
