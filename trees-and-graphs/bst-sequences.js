@@ -20,9 +20,8 @@
  * 4. Return array to higher call
  */
 function bstSequences(tree) {
-  // Subarray required in base cases because combineSubtrees acts on nested arrays
+  // Subarray required because combineSubtrees acts on nested arrays
   if (tree === null) { return [[]]; }
-  if (tree.left === null && tree.right === null) { return [[tree.value]]; }
 
   const leftSubtreePermutations = bstSequences(tree.left);
   const rightSubtreePermutations = bstSequences(tree.right);
@@ -67,8 +66,18 @@ function relativeOrderPermutations(first = [], second = [], results = [], permut
   second.unshift(headSecond);
 }
 
-
 // TESTING BELOW
+function testAllUnique(perms) {
+  const set = new Set();
+  for (let i = 0; i < perms.length; i++) {
+    const perm = JSON.stringify(perms[i]);
+
+    if (set.has(perm)) { return false; }
+    set.add(perm);
+  }
+
+  return true;
+}
 class Node {
   constructor(value) {
     this.value = value;
@@ -91,24 +100,13 @@ BST.left.left.right = node4;
 BST.right = node5;
 BST.right.right = node6;
 
-console.log(bstSequences(BST));
+const sequences = bstSequences(BST);
+console.log(sequences);
+console.log(true, testAllUnique(sequences));
 
 // const leftTest = [[1, 2, 3], [7, 8, 9]];
 // const rightTest = [[4, 5, 6], [10, 11, 12]];
 // const testPerms = combineSubtrees(leftTest, rightTest);
-
-function testAllUnique(perms) {
-  const set = new Set();
-  for (let i = 0; i < perms.length; i++) {
-    const perm = JSON.stringify(perms[i]);
-
-    if (set.has(perm)) { return false; }
-    set.add(perm);
-  }
-
-  return true;
-}
-
 // console.log(testPerms);
 // console.log(80, testPerms.length);
 // console.log(true, testAllUnique(testPerms));
