@@ -9,21 +9,25 @@ function knapsack(
   size = 0,
   items = [],
   index = 0,
-  value = 0
+  value = 0,
+  optimalValue = {},
 ) {
+  if (optimalValue.hasOwnProperty(size)) { return optimalValue[size]; }
+
   // Base case: successful value found
   if (size === 0 || index >= items.length) { return value; }
 
   // Use index to track item to avoid array slicing, which would take linear time
   const item = items[index];
+  const NEXT_INDEX = index + 1;
 
   // Cannot pick items bigger than remaining size, so simply move to next item
-  if (item.size > size) { return knapsack(size, items, index + 1, value); }
+  if (item.size > size) { return knapsack(size, items, NEXT_INDEX, value); }
 
   // Compare all possibilities of selecting or not selecting items
-  return Math.max(
-    knapsack(size - item.size, items, index + 1, value + item.value),
-    knapsack(size, items, index + 1, value),
+  return optimalValue[size] = Math.max(
+    knapsack(size - item.size, items, NEXT_INDEX, value + item.value),
+    knapsack(size, items, NEXT_INDEX, value),
   );
 }
 
