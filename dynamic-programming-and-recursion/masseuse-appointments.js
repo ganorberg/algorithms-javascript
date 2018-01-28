@@ -3,7 +3,7 @@
  * and is debating which ones to accept. She needs a 15-minute break between 
  * appointments and therefore she cannot accept any adjacent requests. Given a 
  * sequence of back-to-back appointment requests (all multiples of 15 minutes, 
- * none overalap, and none can be moved), find the optimal (highest total booked
+ * none overlap, and none can be moved), find the optimal (highest total booked
  * minutes) set the masseuse can honor. Return the number of minutes.
  * 
  * REPHRASE
