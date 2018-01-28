@@ -10,8 +10,8 @@
  * 2.) For n = 4 , output: 2  (4 / 2 = 2 / 2 = 1 )
  * 3.) For n = 7 , output: 3  (7 - 1 = 6 / 3 = 2 / 2 = 1)
  *
- * Time complexity: O(N)
- * Space complexity: O(N)
+ * Time complexity: O(3^N)
+ * Space complexity: O(N) due to call stack depth
  */
 function minSteps(N, totalSteps = 0) {
   if (N === 1) { return totalSteps; }
@@ -44,6 +44,9 @@ function isDivisibleBy(quotient, num) {
  * to 1 and building up a totalSteps variable. Logic is essentially the same, 
  * but we handle Infinities slightly differently via array access as opposed to 
  * base case check since there is no recursion.
+ * 
+ * Time complexity: O(N)
+ * Space complexity: O(N)
  */
 function minStepsDP(N) {
   const optimalMinSteps = [null, 0, 1, 1]
