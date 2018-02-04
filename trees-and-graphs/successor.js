@@ -27,10 +27,7 @@ function successor(BST, node) {
   if (node === getMax(BST)) { return null; }
   if (node.right !== null) { return getMin(node.right); }
   if (node === node.parent.left) { return node.parent; }
-
-  let currentNode = node;
-  while (isRightChild(currentNode)) { currentNode = currentNode.parent; }
-  return currentNode.parent;
+  return getParentOfAncestorThatIsLeftChild(node);
 }
 
 function isRightChild(node) {
@@ -45,6 +42,12 @@ function getMin(tree) {
 function getMax(tree) {
   if (tree.right === null) { return tree; }
   return getMax(tree.right);
+}
+
+function getParentOfAncestorThatIsLeftChild(node) {
+  let currentNode = node;
+  while (isRightChild(currentNode)) { currentNode = currentNode.parent; }
+  return currentNode.parent;
 }
 
 class Node {
