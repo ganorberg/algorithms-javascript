@@ -12,6 +12,10 @@
  * 1B1
  * 2C
  * 3
+ * 
+ * STRATEGY: O(2^N) time and space complexity
+ * 2 versions below. First recursively splices until a full abbreviation is seen.
+ * The second is more efficient and builds bottom-up from an empty string.
  */
 function abbreviate(str, startIndex = 0, abbreviations = [String(str.length)]) {
   if (isFullyAbbreviated(str)) { return; }
@@ -53,5 +57,40 @@ function digitWithinLength(str, index, digit) {
   return index - 1 + digit < str.length;
 }
 
-console.log(abbreviate('ABC'));
-console.log(abbreviate('ABCD'));
+// console.log(abbreviate('ABC'));
+// console.log(abbreviate('ABCD'));
+
+function abbreviate2(str) {
+  let abbreviations = [""];
+  for (let index = 0; index < str.length; index++) {
+    const letter = str[index];
+
+    let newAbbreviations = [];
+    abbreviations.forEach(abbreviation => {
+      const useLetter = abbreviation + letter;
+      const useNumber = buildNumber(abbreviation);
+      newAbbreviations.push(useLetter);
+      newAbbreviations.push(useNumber);
+    });
+
+    abbreviations = newAbbreviations;
+  }
+
+  return abbreviations;
+}
+
+function buildNumber(str) {
+  if (str === "") { return "1"; }
+  const lastCharacter = str[str.length - 1];
+  if (lastCharacter.match(/\d/)) {
+    const numberIncreased = Number(lastCharacter) + 1;
+    return str.slice(0, str.length - 1) + numberIncreased;
+  }
+
+  return str + "1";
+}
+
+// console.log(buildNumber("ABC"));
+// console.log(buildNumber("A1"));
+// console.log(buildNumber(""));
+console.log(abbreviate2("ABCD"));
