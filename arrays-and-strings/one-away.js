@@ -73,3 +73,5 @@ console.log(true, oneAway("pale", "ple"));
 console.log(true, oneAway("pales", "pale"));
 console.log(true, oneAway("pale", "bale"));
 console.log(false, oneAway("pale", "bake"));
+console.log(true, oneAway("bake", "bake"));
+
