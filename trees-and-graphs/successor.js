@@ -17,21 +17,15 @@
  * STRATEGY: O(logN) time and O(logN) space (including call stack)
  * Search for input node, then follow cases below.
  * 
- * 4 cases:
+ * 3 cases:
  * 1. If max, return null because no greater values.
  * 2. If has right subtree, then get min of right subtree.
- * 3. If left child, get parent.
- * 4. If right child, traverse parents until node is left child, then return parent
+ * 3. Get parent of first left child seen in ancestral lineage, including self
  */
 function successor(BST, node) {
   if (node === getMax(BST)) { return null; }
   if (node.right !== null) { return getMin(node.right); }
-  if (node === node.parent.left) { return node.parent; }
-  return getParentOfAncestorThatIsLeftChild(node);
-}
-
-function isRightChild(node) {
-  return node === node.parent.right;
+  return getParentOfLeftChild(node);
 }
 
 function getMin(tree) {
@@ -44,7 +38,11 @@ function getMax(tree) {
   return getMax(tree.right);
 }
 
-function getParentOfAncestorThatIsLeftChild(node) {
+function isRightChild(node) {
+  return node === node.parent.right;
+}
+
+function getParentOfLeftChild(node) {
   let currentNode = node;
   while (isRightChild(currentNode)) { currentNode = currentNode.parent; }
   return currentNode.parent;
