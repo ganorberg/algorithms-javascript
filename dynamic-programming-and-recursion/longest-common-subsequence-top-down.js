@@ -12,10 +12,6 @@
  *
  * Time complexity: O(A * B), where each character represents length of each input string
  * Space complexity: O(A * B), where each character represents length of each input string
- *
- * Space complexity can be improved to O(A) since only current and previous rows
- * are needed in calculations. To do this, start with mostly empty cache then
- * delete rows as they are not needed while building new ones.
  */
 function LCSlength(A, B, indexA = 0, indexB = 0, lookup = {}) {
   const subproblem = stringify(indexA, indexB);
