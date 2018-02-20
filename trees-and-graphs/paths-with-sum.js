@@ -6,7 +6,7 @@
  * parent nodes to child nodes).
  * 
  * ASSUMPTIONS
- * - valid input, non-null, not necesssarily binary search tree
+ * - valid input, non-null, not necessarily binary search tree
  * - nodes have value, left and right properties
  * - children do not have access to parents
  * - might be no possible paths
@@ -48,7 +48,7 @@ function countPathsWithSum(node, targetSum, runningSum = 0, pathCount = {}) {
   totalPaths += countPathsWithSum(node.left, targetSum, sumFromRoot, pathCount);
   totalPaths += countPathsWithSum(node.right, targetSum, sumFromRoot, pathCount);
 
-  // Backtrack. Do not carry hash table information to parents or any upstream branches.
+  // Backtrack. Do not carry hash table information upstream.
   pathCount[sumFromRoot]--;
   if (pathCount[sumFromRoot] === 0) { delete pathCount[sumFromRoot]; }
 
