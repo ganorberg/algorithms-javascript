@@ -46,15 +46,3 @@ const priceTable = {
 
 console.log(10, maxRodRevenue(4, priceTable));
 console.log(22, maxRodRevenue(8, priceTable));
-
-// BRUTE FORCE
-// function maxRodRevenue(rodLength, priceTable, revenue = 0) {
-//   if (rodLength < 0) { return 0; }
-//   if (rodLength === 0) { return revenue; }
-//   console.log(revenue);
-//   return Math.max(
-//     maxRodRevenue(rodLength - 1, priceTable, revenue + priceTable[1]),
-//     maxRodRevenue(rodLength - 2, priceTable, revenue + priceTable[2]),
-//     maxRodRevenue(rodLength - 3, priceTable, revenue + priceTable[3])
-//   );
-// }
