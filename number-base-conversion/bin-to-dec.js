@@ -1,23 +1,37 @@
 // Using native method
-function binToDec(binary) {
-  return parseInt(binary, 2);
-}
+// function binToDec(binary) {
+//   return parseInt(binary, 2);
+// }
 
-// Manually
+// Most efficient version
 function binToDec(binary) {
   let decimal = 0;
+  let mask = 1;
 
   for (let i = 0; i < 32; i++) {
-    const bit = getBit(binary, i);
+    const bit = Number((binary & mask) !== 0);
     decimal += (2 ** i) * bit;
+    mask <<= 1;
   }
 
   return decimal;
 }
 
-function getBit(binary, index) {
-  return Number((binary & (1 << index)) !== 0);
-}
+// Manually with some duplicated work in getBit
+// function binToDec(binary) {
+//   let decimal = 0;
+
+//   for (let i = 0; i < 32; i++) {
+//     const bit = getBit(binary, i);
+//     decimal += (2 ** i) * bit;
+//   }
+
+//   return decimal;
+// }
+
+// function getBit(binary, index) {
+//   return Number((binary & (1 << index)) !== 0);
+// }
 
 // Slow manually with binary string
 // function binToDec(binary) {
