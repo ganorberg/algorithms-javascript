@@ -92,7 +92,7 @@ console.log(3, editDistanceDP('', 'xyz'));
 //   // Same letter, so skip it
 //   if (A[0] === B[0]) { return editDistance(A.slice(1), B.slice(1), distance); }
 
-//   // Search all possible distances in O(N^3) time
+//   // Search all possible distances in O(3^N) time
 //   return Math.min(
 //     // Case 1: Replace character in A
 //     editDistance(A.slice(1), B.slice(1), distance + 1),
