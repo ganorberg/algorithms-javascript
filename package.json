@@ -1,0 +1,17 @@
+{
+  "name": "@ganorberg/algorithms-javascript",
+  "version": "0.1.0",
+  "description": "Iron sharpens iron; scholar, the scholar.",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ganorberg/algorithms-javascript.git"
+  },
+  "author": "George Norberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ganorberg/algorithms-javascript/issues"
+  },
+  "homepage": "https://github.com/ganorberg/algorithms-javascript#readme"
+}
