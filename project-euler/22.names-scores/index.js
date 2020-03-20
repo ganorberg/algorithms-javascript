@@ -23,8 +23,8 @@ const fs = require("fs");
 const path = require("path");
 
 // Avoid callback hell
-const util = require("util");
-const readFile = util.promisify(fs.readFile);
+const { promisify } = require("util");
+const readFile = promisify(fs.readFile);
 
 const alphabetScores = {
   A: 1,

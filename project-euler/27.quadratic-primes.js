@@ -51,7 +51,7 @@ function isPrime(n) {
   }
 
   const squareRoot = Math.sqrt(n);
-  let jump = 2;
+  let jump = 4;
   for (let i = 5; i <= squareRoot; i += jump) {
     if (n % i === 0) {
       return false;
