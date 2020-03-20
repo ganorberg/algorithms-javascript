@@ -1,2 +1,3 @@
 # javascript-algorithms
-Iron sharpens iron; scholar, the scholar.
+
+For practice, not production.
