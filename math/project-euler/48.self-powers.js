@@ -18,8 +18,7 @@ function selfPowers() {
     sum += product;
   }
 
-  const sumString = sum.toString();
-  return sumString.slice(sumString.length - 10, sumString);
+  return sum.toString().slice(-10);
 }
 
 console.log(selfPowers());
