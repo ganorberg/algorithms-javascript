@@ -111,7 +111,7 @@ function disproveGoldbach() {
       doubleSquares.length + 1
     );
 
-    // may not push any values if empty array
+    // if empty array, no values get pushed
     doubleSquares.push(...moreDoubleSquares);
     const hasSum = checkSum(odd, primes, doubleSquares);
     if (hasSum === false) {

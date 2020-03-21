@@ -16,14 +16,6 @@ THOUGHTS
 - keep primes above 10
 - so can optimize by only checking 20, 19, 18, 17, 16, 15, 14, 13, 11
 */
-function getSmallestMultiple() {
-  for (let i = 2520; i < Infinity; i++) {
-    if (hasAllFactors(i) === true) {
-      return i;
-    }
-  }
-}
-
 function hasAllFactors(n) {
   for (let i = 2; i <= 20; i++) {
     if (n % i !== 0) {
@@ -32,6 +24,14 @@ function hasAllFactors(n) {
   }
 
   return true;
+}
+
+function getSmallestMultiple() {
+  for (let i = 2520; i < Infinity; i++) {
+    if (hasAllFactors(i) === true) {
+      return i;
+    }
+  }
 }
 
 console.log(getSmallestMultiple());

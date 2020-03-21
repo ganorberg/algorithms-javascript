@@ -13,21 +13,6 @@ THOUGHTS
   997^3 ~ 1,000,000,000 ops to brute force for all 
   possible triplets. Then quick check with helper and math.
 */
-function getPythagoreanTriplet() {
-  for (let i = 1; i <= 997; i++) {
-    for (let j = 1; j <= 997; j++) {
-      for (let k = 1; k <= 997; k++) {
-        const isPythagTriplet = checkPythag(i, j, k);
-        if (isPythagTriplet) {
-          if (i + j + k === 1000) {
-            return i * j * k;
-          }
-        }
-      }
-    }
-  }
-}
-
 function checkPythag(n1, n2, n3) {
   const first = Math.pow(n1, 2);
   const second = Math.pow(n2, 2);
@@ -41,6 +26,21 @@ function checkPythag(n1, n2, n3) {
   }
 
   return false;
+}
+
+function getPythagoreanTriplet() {
+  for (let i = 1; i <= 997; i++) {
+    for (let j = 1; j <= 997; j++) {
+      for (let k = 1; k <= 997; k++) {
+        const isPythagTriplet = checkPythag(i, j, k);
+        if (isPythagTriplet) {
+          if (i + j + k === 1000) {
+            return i * j * k;
+          }
+        }
+      }
+    }
+  }
 }
 
 console.log(getPythagoreanTriplet());
